@@ -6,7 +6,7 @@ describe("Running test", () => {
     test("Test GET endpoint /", (done) => {
         request.get("/").then(res => {
             expect(res.status).toBe(200)
-            expect(res.body).toHaveProperty("messag")
+            expect(res.body).toHaveProperty("message")
             done()
         }).catch(err => done(err))
     })

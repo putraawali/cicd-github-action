@@ -12,14 +12,11 @@ on:
 
 jobs:
   ini_proses_build_1:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [ 16.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - uses: actions/checkout@v3 
     - name: Use Node.js ${{ matrix.node-version }}
@@ -29,3 +26,12 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test
+
+  ini_proses_build_2: 
+    runs-on: ubuntu-latest
+    #Depends on ini_proses_build_1 job
+    needs: ini_proses_build_1
+    # Condition where steps only executed when ini_proses_build_1 job success
+    if: ${{ needs.ini_proses_build_1.result == 'success' }}
+    steps:
+    - run: echo "Jalan nih bro"
